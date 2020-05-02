@@ -2,10 +2,11 @@
 
 # Create class Player
 class Player
-  attr_accessor :name
+  attr_accessor :name, :can_play
 
   def initialize(name)
     @name = name
+    @can_play = true # indicates whether a player can play or not
   end
 
   def guess
