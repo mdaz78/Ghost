@@ -9,7 +9,7 @@ class Player
   end
 
   def guess
-    print 'Enter your guess : '
+    print "Enter your guess #{@name} : "
     gets.chomp
   end
 
