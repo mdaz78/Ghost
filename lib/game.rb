@@ -9,6 +9,7 @@ class Game
     @players = player_names.map { |player_name| Player.new(player_name) }
     @fragment = ''
     @dictionary = nil
+    @losses = make_losses_hash
   end
 
   def dictionary
@@ -59,9 +60,38 @@ class Game
   end
 
   def play_round
-    loop do
-      take_turn(current_player)
-      next_player!
+    take_turn(current_player)
+    next_player!
+  end
+
+  def make_losses_hash
+    @losses = {}
+    @players.each do |player|
+      @losses[player] = ''
     end
+    @losses
+  end
+
+  def record_loss
+    score_string = 'GHOST'
+    index_of_loss = losses[current_player].length
+    losses[current_player] += score_string[index_of_loss]
+    @fragment = ''
+  end
+
+  def lose?
+    @losses[current_player] == 'GHOST'
+  end
+
+  def remove_player_who_has_lost
+    @players.delete(current_player) if lose?
+  end
+
+  def win?
+    @players.length == 1
+  end
+
+  def run
+    play_round until win?
   end
 end
