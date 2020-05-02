@@ -31,12 +31,8 @@ class Game
     @players.first
   end
 
-  def previous_player
-    @players.last
-  end
-
   def next_player!
-    @players[0], @players[1] = @players[1], @players[0]
+    @players.rotate!
   end
 
   def take_turn(player)
@@ -62,7 +58,7 @@ class Game
 
   def play_round
     print_score_card
-    take_turn(current_player)
+    take_turn(current_player) if current_player.can_play
     next_player!
   end
 
